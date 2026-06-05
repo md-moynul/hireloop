@@ -281,7 +281,7 @@ export default function SignUpPage() {
       </Link>{" "}
       and{" "}
       <Link href="#" size="sm" className="font-semibold text-primary hover:underline inline-flex">
-        Privacy Policy
+        Privacy Policy 
       </Link>
     </span>
   </Checkbox>
