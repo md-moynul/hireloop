@@ -33,7 +33,7 @@ export default function Hero() {
 
         {/* Dynamic Typography Header */}
         <div className="flex flex-col gap-4 max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight bg-gradient-to-b from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight bg-linear-to-b from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent">
             Find Your Dream Job Today
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -58,7 +58,7 @@ export default function Hero() {
             />
           </div>
 
-          <div className="hidden md:block h-6 w-[1px] bg-zinc-800 mx-2" />
+          <div className="hidden md:block h-6 w-px bg-zinc-800 mx-2" />
 
           <div className="w-full flex items-center gap-3 px-4 py-2 md:py-0 border-t border-zinc-900 md:border-none">
             <MapPin className="w-5 h-5 text-zinc-500 shrink-0" />
@@ -102,7 +102,7 @@ export default function Hero() {
         
         {/* Globe Overlay Background */}
         <div 
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] sm:w-[110%] md:w-full aspect-[2/1] bg-bottom bg-no-repeat bg-contain z-0 pointer-events-none select-none opacity-90"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] sm:w-[110%] md:w-full aspect-2/1 bg-bottom bg-no-repeat bg-contain z-0 pointer-events-none select-none opacity-90"
           style={{ backgroundImage: `url('/images/globe.png')` }}
         />
 
@@ -119,7 +119,7 @@ export default function Hero() {
           {stats.map((stat) => (
             <div 
               key={stat.id} 
-              className="p-5 md:p-6 bg-[#09090b]/40 backdrop-blur-md border border-zinc-900/80 rounded-2xl flex flex-col justify-end items-start gap-1.5 shadow-2xl group hover:border-zinc-800/80 transition-all duration-300 min-h-[140px] md:min-h-[170px]"
+              className="p-5 md:p-6 bg-[#09090b]/40 backdrop-blur-md border border-zinc-900/80 rounded-2xl flex flex-col justify-end items-start gap-1.5 shadow-2xl group hover:border-zinc-800/80 transition-all duration-300 min-h-35 md:min-h-42.5"
             >
               <div className="p-2 bg-zinc-950/80 rounded-xl border border-zinc-900 mb-auto">
                 {stat.icon}
