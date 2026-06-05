@@ -1,13 +1,19 @@
-import { betterAuth } from "better-auth";
-import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
+// dns for server error
+import { setServers } from "node:dns/promises";
+setServers(["1.1.1.1", "8.8.8.8"]);
 
-const client = new MongoClient("mongodb://localhost:27017/database");
-const db = client.db();
+import { betterAuth } from "better-auth"; // Change back to standard import
+import { MongoClient } from "mongodb";
+import { mongodbAdapter } from "@better-auth/mongo-adapter";
+
+const client = new MongoClient(process.env.MONGODB_URI);
+const db = client.db('hireloop-db');
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    // Optional: if you don't provide a client, database transactions won't be enabled.
-    client
-  }),
+    database: mongodbAdapter(db, {
+        client
+    }),
+    emailAndPassword: {
+        enabled: true,
+    },
 });
