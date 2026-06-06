@@ -43,7 +43,7 @@ export default function Footer() {
               <div className="bg-indigo-600 p-2 rounded-xl text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
                 <Briefcase className="w-5 h-5" />
               </div>
-              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent">
+              <span className="text-xl font-bold tracking-tight bg-linear-to-r from-white via-neutral-200 to-neutral-400 bg-clip-text text-transparent">
                 hireloop
               </span>
             </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
           {/* Navigation Links Columns */}
           <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 md:justify-items-end">
             {footerSections.map((section) => (
-              <div key={section.title} className="flex flex-col gap-4 min-w-[120px]">
+              <div key={section.title} className="flex flex-col gap-4 min-w-30">
                 <h3 className="text-indigo-500 text-sm font-semibold tracking-wider">
                   {section.title}
                 </h3>

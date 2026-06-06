@@ -9,7 +9,7 @@ export default function CallToAction() {
     <section className="w-full bg-[#0d0d0f] text-white py-32 px-6 relative overflow-hidden flex items-center justify-center">
       
       {/* Background Grid Image Layer - Clean, sharp fill edge-to-edge */}
-      <div className="absolute inset-0 bg-[url('/images/cta-bg.png')] bg-center bg-no-repeat bg-[length:100%_100%] opacity-40 mix-blend-screen pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/images/cta-bg.png')] bg-center bg-no-repeat bg-size-[100%_100%] opacity-40 mix-blend-screen pointer-events-none" />
       
       {/* Color Like Pic: Exact High-Intensity Indigo/Blue Hybrid Radial Overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.28)_0%,rgba(59,130,246,0.1)_40%,transparent_70%)] mix-blend-plus-lighter pointer-events-none" />
