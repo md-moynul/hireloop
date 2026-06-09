@@ -22,8 +22,6 @@ export default function Navbar() {
   const { 
     data: session, 
     isPending, 
-    error, 
-    refetch 
   } = authClient.useSession();
 
   const handleLogout = async () => {

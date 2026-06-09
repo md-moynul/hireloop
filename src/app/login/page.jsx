@@ -63,10 +63,14 @@ export default function SignInPage() {
         rememberMe: rememberMe === "on" ? true : false,
 
       });
+      
+      
       if(data) {
         toast.success("Login successful");
       }else if(error) {
         toast.error("Login failed: " + error.message);
+        console.log(error);
+        
       }
 
     
