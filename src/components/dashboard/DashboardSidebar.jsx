@@ -29,7 +29,7 @@ export default function DashboardSidebar() {
   =====================================================
   */
 
-  const companyId = null; // change to null to test empty state
+  const companyId = 'company_123_mock'; // change to null to test empty state
   const hasCompany = !!companyId;
 
   const onOpen = () => setIsOpen(true);
