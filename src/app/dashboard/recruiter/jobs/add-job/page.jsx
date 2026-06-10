@@ -2,19 +2,21 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
+import {
   Form,
   TextField,
-  Input, 
+  Input,
   Label,
   FieldError,
-  Select, 
+  Select,
   ListBox,
-  Switch, 
-  Button, 
-  Card, 
+  Switch,
+  Button,
+  Card,
 } from "@heroui/react";
 import { Briefcase, FileText, Factory, Check } from "@gravity-ui/icons";
+import { addNewJob } from "@/lib/action/job";
+import { toast } from "react-toastify";
 
 export default function AddJobPage() {
   const router = useRouter();
@@ -23,13 +25,13 @@ export default function AddJobPage() {
   const companyData = {
     name: "TechLoop Inc.",
     isApproved: true,
-    plan: "Free", 
+    plan: "Free",
     activeJobsCount: 1,
-    jobLimit: 3,  
+    jobLimit: 3,
   };
 
   // State handles Onsite vs Remote switching
-  const [isOnsite, setIsOnsite] = useState(true); 
+  const [isOnsite, setIsOnsite] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   // Business logic guards
@@ -41,24 +43,24 @@ export default function AddJobPage() {
     if (!canPost) return;
 
     setIsLoading(true);
-    
+
     const formElement = e.currentTarget;
     const rawFormData = new FormData(formElement);
-    
+
     // Safely extract payload via destructuring to preserve exact schema types
-    const { 
-      title, 
-      category, 
-      type, 
-      minSalary, 
-      maxSalary, 
-      currency, 
-      city, 
-      country, 
-      deadline, 
-      responsibilities, 
-      requirements, 
-      benefits 
+    const {
+      title,
+      category,
+      type,
+      minSalary,
+      maxSalary,
+      currency,
+      city,
+      country,
+      deadline,
+      responsibilities,
+      requirements,
+      benefits
     } = Object.fromEntries(rawFormData);
 
     // Explicit Schema-Typed Payload Construction
@@ -66,8 +68,8 @@ export default function AddJobPage() {
       title: title?.toString().trim(),
       category: category?.toString(),
       type: type?.toString(),
-      minSalary: minSalary ? Number(minSalary) : 0, 
-      maxSalary: maxSalary ? Number(maxSalary) : 0, 
+      minSalary: minSalary ? Number(minSalary) : 0,
+      maxSalary: maxSalary ? Number(maxSalary) : 0,
       currency: currency?.toString(),
       city: isOnsite ? city?.toString().trim() : "Remote",
       country: isOnsite ? country?.toString().trim() : "Remote",
@@ -75,24 +77,27 @@ export default function AddJobPage() {
       responsibilities: responsibilities?.toString().trim(),
       requirements: requirements?.toString().trim(),
       benefits: benefits ? benefits.toString().trim() : "",
-      isRemote: !isOnsite, 
-      companyId: "company_123_mock", 
-      status: "active", 
+      isRemote: !isOnsite,
+      companyId: "company_123_mock",
+      status: "active",
       createdAt: new Date().toISOString(),
     };
 
     // Logging typed structural payload 
     console.log("Verified Form Submission Payload:", payload);
-
+    const data = await addNewJob(payload)
     // Simulate standard server write cycle latency
-    setTimeout(() => {
+    if (data.insertedId) {
+      toast.success('Job added successful')
       formElement.reset();
       setIsOnsite(true);
       setIsLoading(false);
-      
-      // Clean redirect to dashboard tracking board
-      // router.push("/dashboard/jobs");
-    }, 1200);
+      setTimeout(() => {
+
+        // Clean redirect to dashboard tracking board
+        router.push("/dashboard/recruiter/jobs");
+      }, 1000);
+    }
   };
 
   return (
@@ -131,12 +136,12 @@ export default function AddJobPage() {
       </Card>
 
       {/* Strict Validation Layout Wrapper */}
-      <Form 
-        className="space-y-8 w-full" 
+      <Form
+        className="space-y-8 w-full"
         onSubmit={onSubmit}
         validationBehavior="native" // Standard browser validation API integration
       >
-        
+
         {/* SECTION 1: JOB INFO */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-2">
@@ -184,9 +189,9 @@ export default function AddJobPage() {
             </Select>
 
             {/* Custom Validator ensuring negative sums are rejected */}
-            <TextField 
-              isRequired 
-              name="minSalary" 
+            <TextField
+              isRequired
+              name="minSalary"
               type="number"
               validate={(value) => Number(value) < 0 ? "Salary floor cannot be a negative value" : null}
             >
@@ -195,9 +200,9 @@ export default function AddJobPage() {
               <FieldError className="text-xs text-danger mt-1" />
             </TextField>
 
-            <TextField 
-              isRequired 
-              name="maxSalary" 
+            <TextField
+              isRequired
+              name="maxSalary"
               type="number"
               validate={(value) => Number(value) < 0 ? "Salary ceiling cannot be a negative value" : null}
             >
@@ -241,9 +246,9 @@ export default function AddJobPage() {
           {/* Dynamic Switch Component */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-4 pb-2">
             <div className="w-full sm:w-auto">
-              <Switch 
-                isSelected={isOnsite} 
-                onChange={() => setIsOnsite(!isOnsite)} 
+              <Switch
+                isSelected={isOnsite}
+                onChange={() => setIsOnsite(!isOnsite)}
                 color="primary"
                 aria-label={isOnsite ? "Requires physical onsite location" : "Fully remote position"}
               >
@@ -251,16 +256,16 @@ export default function AddJobPage() {
                   <Switch.Thumb />
                 </Switch.Control>
                 <Switch.Content>
-                  <span className="text-sm font-medium text-default-600 select-none min-w-[260px] inline-block">
-                    {isOnsite 
-                      ? "This requires a physical onsite location" 
+                  <span className="text-sm font-medium text-default-600 select-none min-w-65 inline-block">
+                    {isOnsite
+                      ? "This requires a physical onsite location"
                       : "This is a fully remote position"
                     }
                   </span>
                 </Switch.Content>
               </Switch>
             </div>
-            
+
             <div className="w-full sm:w-72">
               <TextField isRequired name="deadline" type="date">
                 <Label>Application Deadline</Label>
@@ -279,31 +284,31 @@ export default function AddJobPage() {
           </div>
 
           {/* Rich content character length validation bounds */}
-          <TextField 
-            isRequired 
-            name="responsibilities" 
+          <TextField
+            isRequired
+            name="responsibilities"
             type="text"
             validate={(value) => value.trim().length < 20 ? "Please outline descriptive responsibilities (min 20 characters)." : null}
           >
             <Label>Responsibilities</Label>
-            <Input as="textarea" className="min-h-[100px] py-2" placeholder="Outline day-to-day responsibilities..." />
+            <Input as="textarea" className="min-h-25 py-2" placeholder="Outline day-to-day responsibilities..." />
             <FieldError className="text-xs text-danger mt-1" />
           </TextField>
 
-          <TextField 
-            isRequired 
-            name="requirements" 
+          <TextField
+            isRequired
+            name="requirements"
             type="text"
             validate={(value) => value.trim().length < 20 ? "Please detail explicit requirements (min 20 characters)." : null}
           >
             <Label>Requirements</Label>
-            <Input as="textarea" className="min-h-[100px] py-2" placeholder="List required skills, experience, and education..." />
+            <Input as="textarea" className="min-h-25 py-2" placeholder="List required skills, experience, and education..." />
             <FieldError className="text-xs text-danger mt-1" />
           </TextField>
 
           <TextField name="benefits" type="text">
             <Label>Benefits (Optional)</Label>
-            <Input as="textarea" className="min-h-[80px] py-2" placeholder="Health insurance, remote stipends, equity packages..." />
+            <Input as="textarea" className="min-h-20 py-2" placeholder="Health insurance, remote stipends, equity packages..." />
             <FieldError className="text-xs text-danger mt-1" />
           </TextField>
         </div>
