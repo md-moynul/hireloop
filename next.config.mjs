@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['better-auth', '@better-auth/kysely-adapter', 'mongodb'],
-
+images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+       
+      },
+    ],
+  },
   turbopack: {
     resolveAlias: {
       // better-auth's internal @better-auth/kysely-adapter ships SQLite dialect
@@ -12,6 +20,7 @@ const nextConfig = {
       './node-sqlite-dialect.mjs': './src/lib/empty-stub.js',
     },
   },
+  
 };
 
 export default nextConfig;
