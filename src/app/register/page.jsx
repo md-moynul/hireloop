@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   TextField,
@@ -25,10 +25,10 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [selectedRole, setSelectedRole] = React.useState("candidate");
-  const [errors, setErrors] = React.useState({});
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("candidate");
+  const [errors, setErrors] =useState({});
+  const [isLoading, setIsLoading] =useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -71,7 +71,7 @@ export default function SignUpPage() {
         email,
         password,
         name,
-        type: selectedRole, // Still passes "candidate" or "recruiter" seamlessly
+        role: selectedRole, // Still passes "candidate" or "recruiter" seamlessly
         callbackURL: "/"
       });
 

@@ -16,4 +16,11 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
+    user: {
+        additionalFields: {
+            role: {
+                defaultValue: 'candidate'
+            }
+        }
+    }
 });
