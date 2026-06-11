@@ -19,8 +19,7 @@ import {
   Eye,
   EyeSlash,
   ArrowRight,
-  Briefcase,
-  Layers
+  Briefcase
 } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
@@ -40,14 +39,8 @@ export default function SignUpPage() {
 
     const dataSignin = Object.fromEntries(new FormData(e.currentTarget));
 
-    if (selectedRole === "candidate" && !dataSignin.fullName) {
-      setErrors({ fullName: "Please enter your full name." });
-      setIsLoading(false);
-      return;
-    }
-
-    if (selectedRole === "recruiter" && !dataSignin.companyName) {
-      setErrors({ companyName: "Please enter your organization or company name." });
+    if (!dataSignin.name) {
+      setErrors({ name: "Please enter your name." });
       setIsLoading(false);
       return;
     }
@@ -71,25 +64,25 @@ export default function SignUpPage() {
     }
 
     try {
-      const { fullName, companyName, email, password } = dataSignin;
-      const name = selectedRole === "candidate" ? fullName : companyName;
-      console.log(name , email , password);
+      const { name, email, password } = dataSignin;
+      console.log(name, email, password, selectedRole);
       
       const { data, error } = await authClient.signUp.email({
         email,
         password,
         name,
-        type: selectedRole,
+        type: selectedRole, // Still passes "candidate" or "recruiter" seamlessly
         callbackURL: "/"
       });
+
       console.log(data, error);
-      if(data) {
+      if (data) {
         setErrors({});
         toast.success("Account created successfully!");
-      } else if(error) {
+      } else if (error) {
         toast.error("Account creation failed: " + error.message);
       }
-    }  finally {
+    } finally {
       setIsLoading(false);
     }
   };
@@ -110,7 +103,7 @@ export default function SignUpPage() {
             </p>
           </div>
 
-          {/* HeroUI v3 Tabs */}
+          {/* HeroUI v3 Tabs for Tracking Registration Intent */}
           <Tabs
             selectedKey={selectedRole}
             onSelectionChange={(key) => {
@@ -151,62 +144,33 @@ export default function SignUpPage() {
             </Tabs.Panel>
           </Tabs>
 
-          {/* Form Processing */}
+          {/* Unified Dynamic Form Submission */}
           <Form className="flex flex-col gap-4" onSubmit={handleSubmit} validationBehavior="aria">
 
-            {selectedRole === "candidate" && (
-              <TextField
-                name="fullName"
-                isRequired
-                isDisabled={isLoading}
-                isInvalid={!!errors.fullName}
-                className="w-full gap-1.5"
-              >
-                <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                  Full Name
-                </Label>
-                <InputGroup>
-                  <InputGroup.Prefix>
-                    <Person className="text-default-400 text-lg mx-1" />
-                  </InputGroup.Prefix>
-                  <Input
-                    placeholder="Alex Morgan"
-                    className="w-full px-1 py-2 text-sm"
-                    variant="primary"
-                  />
-                </InputGroup>
-                <FieldError className="text-xs text-danger mt-1">
-                  {errors.fullName}
-                </FieldError>
-              </TextField>
-            )}
-
-            {selectedRole === "recruiter" && (
-              <TextField
-                name="companyName"
-                isRequired
-                isDisabled={isLoading}
-                isInvalid={!!errors.companyName}
-                className="w-full gap-1.5"
-              >
-                <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                  Company Name
-                </Label>
-                <InputGroup>
-                  <InputGroup.Prefix>
-                    <Layers className="text-default-400 text-lg mx-1" />
-                  </InputGroup.Prefix>
-                  <Input
-                    placeholder="TechWave Labs"
-                    className="w-full px-1 py-2 text-sm"
-                    variant="primary"
-                  />
-                </InputGroup>
-                <FieldError className="text-xs text-danger mt-1">
-                  {errors.companyName}
-                </FieldError>
-              </TextField>
-            )}
+            <TextField
+              name="name"
+              isRequired
+              isDisabled={isLoading}
+              isInvalid={!!errors.name}
+              className="w-full gap-1.5"
+            >
+              <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                Name
+              </Label>
+              <InputGroup>
+                <InputGroup.Prefix>
+                  <Person className="text-default-400 text-lg mx-1" />
+                </InputGroup.Prefix>
+                <Input
+                  placeholder="Alex Morgan"
+                  className="w-full px-1 py-2 text-sm"
+                  variant="primary"
+                />
+              </InputGroup>
+              <FieldError className="text-xs text-danger mt-1">
+                {errors.name}
+              </FieldError>
+            </TextField>
 
             <TextField
               name="email"
@@ -279,7 +243,7 @@ export default function SignUpPage() {
               </p>
             )}
 
-            {/* Legal Agreement Checkbox (HeroUI v3 Custom Styled Square Border) */}
+            {/* Legal Agreement Checkbox */}
             <div className="flex flex-col gap-1.5 px-0.5 mt-2">
               <Checkbox
                 name="terms"

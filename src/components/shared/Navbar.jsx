@@ -18,11 +18,12 @@ export default function Navbar() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  
-  const { 
-    data: session, 
-    isPending, 
+
+  const {
+    data: session,
+    isPending,
   } = authClient.useSession();
+  console.log(session);
 
   const handleLogout = async () => {
     try {
@@ -86,7 +87,7 @@ export default function Navbar() {
                   Hi, {session.user.name?.split(" ")[0] || "User"}
                 </span>
                 <Button
-                   variant="danger-soft"
+                  variant="danger-soft"
                   isLoading={isLoggingOut}
                   onClick={handleLogout}
                   className="rounded-none"
@@ -157,8 +158,8 @@ export default function Navbar() {
                   Logged in as <strong className="text-white">{session.user.name}</strong>
                 </span>
                 <Button
-                  
-                 
+
+
                   isLoading={isLoggingOut}
                   onClick={handleLogout}
                   className="w-full font-semibold rounded-xl text-sm h-11 cursor-pointer gap-2"
@@ -170,8 +171,8 @@ export default function Navbar() {
             ) : (
               // RESTORED: Original Mobile Action Links
               <>
-                <Link 
-                  href="/login" 
+                <Link
+                  href="/login"
                   className="text-[#5046e5] hover:text-indigo-400 text-lg py-2 font-semibold text-center transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >

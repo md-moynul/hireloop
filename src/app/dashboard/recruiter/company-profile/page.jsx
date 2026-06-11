@@ -24,6 +24,7 @@ import {
     Clock,
     CircleXmark
 } from "@gravity-ui/icons";
+import { createCompany } from "@/lib/action/company";
 
 export default function CompanyProfile() {
     // --- STATE MANAGEMENT ---
@@ -62,7 +63,7 @@ export default function CompanyProfile() {
     };
 
     // --- FORM SUBMISSION ---
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async(e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.currentTarget));
 
@@ -79,7 +80,8 @@ export default function CompanyProfile() {
 
         setCompany(updatedCompany);
         setIsEditing(false);
-        console.log(company);
+        console.log(updatedCompany);
+        const result = await createCompany(updatedCompany)
         
     };
 
