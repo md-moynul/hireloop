@@ -8,7 +8,7 @@ const CompanyPage = async() => {
     
     return (
         <div>
-           <CompanyProfile /> 
+           <CompanyProfile recruiter={user} /> 
         </div>
     );
 };

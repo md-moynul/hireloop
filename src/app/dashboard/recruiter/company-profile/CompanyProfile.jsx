@@ -27,7 +27,7 @@ import {
 import { createCompany } from "@/lib/action/company";
 import { toast } from "react-toastify";
 
-export default function CompanyProfile() {
+export default function CompanyProfile({recruiter}) {
     // --- STATE MANAGEMENT ---
     const [company, setCompany] = useState(null); 
     const [isEditing, setIsEditing] = useState(false);
@@ -77,6 +77,7 @@ export default function CompanyProfile() {
             description: data.description,
             logo: logoUrl || (company?.logo || ""),
             status: company?.status || "Pending", 
+            recruiterId : recruiter.id,
         };
 
         setCompany(updatedCompany);

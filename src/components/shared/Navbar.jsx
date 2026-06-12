@@ -8,7 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 // Reusable navigation links array
-const navLinks = [
+const baseNavLinks = [
   { label: "Browse Jobs", href: "/jobs" },
   { label: "Company", href: "/company" },
   { label: "Pricing", href: "/pricing" },
@@ -19,11 +19,12 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const {
-    data: session,
-    isPending,
-  } = authClient.useSession();
-  // console.log(session);
+const { data: session, isPending } = authClient.useSession();
+console.log(session?.user);
+
+  const navLinks = session?.user 
+    ? [{ label: "Dashboard", href: `/dashboard/${session?.user?.role}` }, ...baseNavLinks]
+    : baseNavLinks;
 
   const handleLogout = async () => {
     try {

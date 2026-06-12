@@ -1,9 +1,9 @@
 import React from 'react';
-import { getUser } from '@/lib/data/getUser';
 import DashboardStatus from '@/components/dashboard/DashboardStatus';
+import { getUserSession } from '@/lib/core/session';
 
 const page = async () => {
-    const user = await getUser();
+    const user = await getUserSession;
     return (
         <div className="">
             
