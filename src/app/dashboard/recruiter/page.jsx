@@ -3,7 +3,7 @@ import DashboardStatus from '@/components/dashboard/DashboardStatus';
 import { getUserSession } from '@/lib/core/session';
 
 const page = async () => {
-    const user = await getUserSession;
+    const user = await getUserSession();
     return (
         <div className="">
             

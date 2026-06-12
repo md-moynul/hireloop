@@ -5,7 +5,7 @@ import NoJobsState from "@/components/dashboard/NoJobsState";
 
 const RecruiterJobsPage = async () => {
     const company = await getLoggedInRecruiterCompany();
-    const companyJobs = await getJobByCompanyId(company._id);
+    const companyJobs = await getJobByCompanyId(company?._id);
 
     return (
         <div className="space-y-6">

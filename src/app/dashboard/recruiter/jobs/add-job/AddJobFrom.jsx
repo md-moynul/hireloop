@@ -116,7 +116,7 @@ export default function AddJobFrom({company}) {
           <div className="flex items-center gap-3">
             <Factory className="text-primary size-6" />
             <div>
-              <Card.Title className="text-base font-semibold">Posting as: {company.name}</Card.Title>
+              <Card.Title className="text-base font-semibold">Posting as: {company?.name}</Card.Title>
               <Card.Description className="text-xs">
                 Plan Level: <span className="text-primary font-semibold">{company?.plan}</span> ({company?.activeJobsCount}/{company?.jobLimit} active slots used)
               </Card.Description>

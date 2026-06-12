@@ -14,23 +14,11 @@ import {
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ recruiter }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  /*
-  =====================================================
-  DEV TOGGLE (DUMMY DATA)
-
-  Change this to test both states:
-  -----------------------------------------------------
-  const companyId = null;                  // NO COMPANY → Register Company shown
-  const companyId = "company_123_mock";    // HAS COMPANY → Full dashboard
-  =====================================================
-  */
-
-  const companyId = 'company_123_mock'; // change to null to test empty state
-  const hasCompany = !!companyId;
+  const hasCompany = !!recruiter;
 
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -75,9 +63,25 @@ export default function DashboardSidebar() {
           href: "/dashboard/recruiter",
         },
         {
+          icon: ChartColumn,
+          label: "Company Profile",
+          href: "/dashboard/recruiter/company-profile",
+        },
+        {
+          icon: Suitcase,
+          label: "All Jobs",
+          href: "/dashboard/recruiter/jobs",
+        },
+        {
           icon: Plus,
-          label: "Register Company",
-          href: "/dashboard/recruiter/register-company",
+          label: "Add Job",
+          href: "/dashboard/recruiter/jobs/add-job",
+          disabled: true,
+        },
+        {
+          icon: Receipt,
+          label: "Applications",
+          href: "/dashboard/recruiter/applications",
         },
         {
           icon: Gear,
@@ -91,32 +95,46 @@ export default function DashboardSidebar() {
       {navItems.map((item) => {
         const IconComponent = item.icon;
         const isActive = pathname === item.href;
+        const isDisabled = item.disabled;
+
+        const buttonContent = (
+          <button
+            type="button"
+            disabled={isDisabled}
+            className={`w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all text-left relative group ${
+              isDisabled
+                ? "text-zinc-600 cursor-not-allowed opacity-50"
+                : isActive
+                ? "bg-[#1c1c1f] text-white cursor-pointer"
+                : "text-zinc-400 hover:text-zinc-200 hover:bg-[#141417]/50 cursor-pointer"
+            }`}
+          >
+            <div className="flex items-center gap-3.5">
+              <IconComponent
+                className={`w-5 h-5 ${
+                  isDisabled
+                    ? "text-zinc-600"
+                    : isActive
+                    ? "text-white"
+                    : "text-zinc-500 group-hover:text-zinc-300"
+                }`}
+              />
+              <span>{item.label}</span>
+            </div>
+
+            {isActive && !isDisabled && (
+              <div className="absolute right-0 top-1/4 h-1/2 w-0.5 bg-white rounded-l" />
+            )}
+          </button>
+        );
+
+        if (isDisabled) {
+          return <div key={item.href}>{buttonContent}</div>;
+        }
 
         return (
           <Link key={item.href} href={item.href} onClick={onClose}>
-            <button
-              type="button"
-              className={`w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all text-left relative group cursor-pointer ${
-                isActive
-                  ? "bg-[#1c1c1f] text-white"
-                  : "text-zinc-400 hover:text-zinc-200 hover:bg-[#141417]/50"
-              }`}
-            >
-              <div className="flex items-center gap-3.5">
-                <IconComponent
-                  className={`w-5 h-5 ${
-                    isActive
-                      ? "text-white"
-                      : "text-zinc-500 group-hover:text-zinc-300"
-                  }`}
-                />
-                <span>{item.label}</span>
-              </div>
-
-              {isActive && (
-                <div className="absolute right-0 top-1/4 h-1/2 w-0.5 bg-white rounded-l" />
-              )}
-            </button>
+            {buttonContent}
           </Link>
         );
       })}
@@ -155,7 +173,6 @@ export default function DashboardSidebar() {
             <p className="mt-1 text-xs text-zinc-400">
               Register your company before posting jobs.
             </p>
-
             <Link href="/dashboard/recruiter/register-company">
               <Button className="mt-4 w-full" size="sm">
                 <Plus className="w-4 h-4" />
@@ -165,13 +182,10 @@ export default function DashboardSidebar() {
           </div>
         ) : (
           <div className="mt-auto rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
-            <p className="text-sm font-medium text-white">
-              Ready to hire?
-            </p>
+            <p className="text-sm font-medium text-white">Ready to hire?</p>
             <p className="mt-1 text-xs text-zinc-500">
               Publish a new job and reach more candidates.
             </p>
-
             <Link href="/dashboard/recruiter/jobs/add-job">
               <Button className="mt-4 w-full" size="sm">
                 <Plus className="w-4 h-4" />
