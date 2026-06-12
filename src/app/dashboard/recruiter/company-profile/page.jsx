@@ -25,6 +25,7 @@ import {
     CircleXmark
 } from "@gravity-ui/icons";
 import { createCompany } from "@/lib/action/company";
+import { toast } from "react-toastify";
 
 export default function CompanyProfile() {
     // --- STATE MANAGEMENT ---
@@ -82,7 +83,9 @@ export default function CompanyProfile() {
         setIsEditing(false);
         console.log(updatedCompany);
         const result = await createCompany(updatedCompany)
-        
+        if ((result.insertedId)) {
+            toast.success('Company create successful')
+        }
     };
 
     // --- STATUS BADGE RENDERER ---

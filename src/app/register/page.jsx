@@ -75,7 +75,7 @@ export default function SignUpPage() {
         callbackURL: "/"
       });
 
-      console.log(data, error);
+      // console.log(data, error);
       if (data) {
         setErrors({});
         toast.success("Account created successfully!");
