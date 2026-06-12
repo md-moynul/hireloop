@@ -96,7 +96,7 @@ export default function DashboardSidebar() {
           <Link key={item.href} href={item.href} onClick={onClose}>
             <button
               type="button"
-              className={`w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all text-left relative group ${
+              className={`w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition-all text-left relative group cursor-pointer ${
                 isActive
                   ? "bg-[#1c1c1f] text-white"
                   : "text-zinc-400 hover:text-zinc-200 hover:bg-[#141417]/50"
