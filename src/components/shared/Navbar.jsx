@@ -20,7 +20,7 @@ export default function Navbar() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
 const { data: session, isPending } = authClient.useSession();
-console.log(session?.user);
+// console.log(session?.user);
 
   const navLinks = session?.user 
     ? [{ label: "Dashboard", href: `/dashboard/${session?.user?.role}` }, ...baseNavLinks]

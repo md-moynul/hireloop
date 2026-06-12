@@ -27,9 +27,9 @@ import {
 import { createCompany } from "@/lib/action/company";
 import { toast } from "react-toastify";
 
-export default function CompanyProfile({recruiter}) {
+export default function CompanyProfile({recruiter,recruiterCompany}) {
     // --- STATE MANAGEMENT ---
-    const [company, setCompany] = useState(null); 
+    const [company, setCompany] = useState(recruiterCompany); 
     const [isEditing, setIsEditing] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [logoUrl, setLogoUrl] = useState("");
@@ -64,30 +64,32 @@ export default function CompanyProfile({recruiter}) {
     };
 
     // --- FORM SUBMISSION ---
-    const handleFormSubmit = async(e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.currentTarget));
+    const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
 
-        const updatedCompany = {
-            name: data.companyName,
-            category: data.category,
-            website: data.website,
-            location: data.location,
-            employeeCount: data.employeeCount,
-            description: data.description,
-            logo: logoUrl || (company?.logo || ""),
-            status: company?.status || "Pending", 
-            recruiterId : recruiter.id,
-        };
+    const isEditMode = !!company; 
 
-        setCompany(updatedCompany);
-        setIsEditing(false);
-        console.log(updatedCompany);
-        const result = await createCompany(updatedCompany)
-        if ((result.insertedId)) {
-            toast.success('Company create successful')
-        }
+    const updatedCompany = {
+        name: data.companyName,
+        category: data.category,
+        website: data.website,
+        location: data.location,
+        employeeCount: data.employeeCount,
+        description: data.description,
+        logo: logoUrl || company?.logo || "",
+        status: company?.status || "Pending",
+        recruiterId: recruiter.id,
     };
+
+    setCompany(updatedCompany);
+    setIsEditing(false);
+
+    const result = await createCompany(updatedCompany);
+    if (result.insertedId) {
+        toast.success(isEditMode ? "Company profile updated successfully" : "Company created successfully");
+    }
+};
 
     // --- STATUS BADGE RENDERER ---
     const renderStatusBadge = (status) => {
@@ -184,7 +186,7 @@ export default function CompanyProfile({recruiter}) {
                             name="category"
                             placeholder="Select sector"
                             isRequired
-                            defaultSelectedKeys={company?.category ? [company.category] : undefined}
+                            defaultValue={company?.category ? [company.category] : undefined}
                         >
                             <Label className="text-sm font-medium">Industry / Category</Label>
                             <Select.Trigger>
@@ -232,7 +234,7 @@ export default function CompanyProfile({recruiter}) {
                             name="employeeCount"
                             placeholder="Select range"
                             isRequired
-                            defaultSelectedKeys={company?.employeeCount ? [company.employeeCount] : undefined}
+                            defaultValue={company?.employeeCount ? [company.employeeCount] : undefined}
                         >
                             <Label className="text-sm font-medium">Employee Count Range</Label>
                             <Select.Trigger>
