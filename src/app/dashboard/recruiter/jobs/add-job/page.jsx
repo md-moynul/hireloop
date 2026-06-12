@@ -4,7 +4,7 @@ import AddJobFrom from './AddJobFrom';
 
 const AddJobPage = async() => {
     const company = await getLoggedInRecruiterCompany()
-    console.log(company);
+    // console.log(company);
     
     return (
         <div>
