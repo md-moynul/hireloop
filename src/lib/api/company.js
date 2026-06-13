@@ -9,3 +9,6 @@ export const getLoggedInRecruiterCompany = async()=>{
     const company =await getCompanyByRecruiter(user?.id)
     return company
 }
+export const getCompanyById =(companyId) =>{
+    return serverFetch(`/api/company/${companyId}`)
+}
