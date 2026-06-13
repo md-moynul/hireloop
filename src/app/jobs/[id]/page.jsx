@@ -1,17 +1,18 @@
 import { getJobByJobId } from '@/lib/api/job';
 import React from 'react';
 import Link from 'next/link';
-import { 
-  Briefcase, 
-  Clock, 
-  ChevronLeft, 
-  CircleDollar, 
-  Calendar, 
-  ShieldCheck, 
-  Gift, 
-  Rocket 
+import {
+  Briefcase,
+  Clock,
+  ChevronLeft,
+  CircleDollar,
+  Calendar,
+  ShieldCheck,
+  Gift,
+  Rocket
 } from "@gravity-ui/icons";
 import { getCompanyById } from '@/lib/api/company';
+import Image from 'next/image';
 
 export default async function JobDetailsPage({ params }) {
   const { id } = await params;
@@ -44,9 +45,8 @@ export default async function JobDetailsPage({ params }) {
     benefits,
     companyId,
   } = job;
-const {name:companyName,logo:companyLogo} =await getCompanyById(companyId)
-console.log(companyName,
-companyLogo,);
+  const { name: companyName, logo: companyLogo } = await getCompanyById(companyId)
+  // console.log(companyName,companyLogo,);
 
   // Formatter matching your Card logic layout safely
   const formatSalary = (amount) => {
@@ -71,10 +71,10 @@ companyLogo,);
   return (
     <div className="min-h-screen bg-black text-neutral-100 py-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl space-y-8">
-        
+
         {/* Back Link Row navigation */}
-        <Link 
-          href="/jobs" 
+        <Link
+          href="/jobs"
           className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors group no-underline"
         >
           <ChevronLeft className="w-4 h-4 transform transition-transform group-hover:-translate-x-1" />
@@ -83,17 +83,19 @@ companyLogo,);
 
         {/* Master Details Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* Main Content Layout Block (Left Column) */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             {/* Core Info Header Block */}
             <div className="bg-[#121212] border border-neutral-850 p-6 rounded-2xl space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 flex items-center justify-center shrink-0">
-                  <img 
-                    src={companyLogo || "https://placehold.co/100x100/1a1a1a/a855f7?text=Job"} 
-                    alt={companyName || "Company logo"} 
+                  <Image
+                    width={55}
+                    height={55}
+                    src={companyLogo}
+                    alt={companyName}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -152,14 +154,14 @@ companyLogo,);
 
               {/* Param Grid Context Meta Fields */}
               <div className="space-y-4">
-                
+
                 {/* 1. Salary Field Container */}
                 <div className="flex items-start gap-3">
                   <CircleDollar className="text-emerald-400 w-4 h-4 mt-0.5 shrink-0" />
                   <div className="space-y-0.5">
                     <span className="block text-xs text-neutral-500">Offered Salary</span>
                     <span className="text-sm font-medium text-neutral-200">
-                      {minSalary && maxSalary 
+                      {minSalary && maxSalary
                         ? `${formatSalary(minSalary)} – ${formatSalary(maxSalary)} / mo`
                         : "Competitive / Undisclosed"}
                     </span>
@@ -198,9 +200,11 @@ companyLogo,);
               </div>
 
               {/* Big CTA Submission Button Action Element */}
-              <button className="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm py-3 px-4 rounded-xl transition-colors shadow-lg shadow-purple-600/10 active:scale-[0.98] transform duration-100">
-                Apply for this Position
-              </button>
+              <Link href={`/jobs/${id}/apply`}>
+                <button className="w-full cursor-pointer bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm py-3 px-4 rounded-xl transition-colors shadow-lg shadow-purple-600/10 active:scale-[0.98] transform duration-100">
+                  Apply for this Position
+                </button>
+              </Link>
             </div>
           </div>
 

@@ -23,11 +23,15 @@ import {
 } from "@gravity-ui/icons";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
+import { redirect, useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirected') || "/"
+  
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -59,14 +63,13 @@ export default function SignInPage() {
       const { data, error } = await authClient.signIn.email({
         email,
         password,
-        callbackURL: "/",
         rememberMe: rememberMe === "on" ? true : false,
-
       });
       
       
       if(data) {
         toast.success("Login successful");
+        redirect(`${redirectTo}`)
       }else if(error) {
         toast.error("Login failed: " + error.message);
         console.log(error);
@@ -238,7 +241,7 @@ export default function SignInPage() {
           {/* Action Hub Redirect Navigation Footer link */}
           <p className="text-center text-sm text-default-500">
             Do not have an account?{" "}
-            <Link size="sm" href="#" className="font-semibold hover:underline">
+            <Link size="sm" href={`/register?redirected=${redirectTo}`} className="font-semibold hover:underline">
               Create an account
             </Link>
           </p>

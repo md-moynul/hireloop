@@ -23,12 +23,16 @@ import {
 } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { redirect, useSearchParams } from "next/navigation";
 
 export default function SignUpPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedRole, setSelectedRole] = useState("candidate");
-  const [errors, setErrors] =useState({});
-  const [isLoading, setIsLoading] =useState(false);
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirected') || "/"
+
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -66,19 +70,19 @@ export default function SignUpPage() {
     try {
       const { name, email, password } = dataSignin;
       console.log(name, email, password, selectedRole);
-      
+
       const { data, error } = await authClient.signUp.email({
         email,
         password,
         name,
         role: selectedRole, // Still passes "candidate" or "recruiter" seamlessly
-        callbackURL: "/"
       });
 
       // console.log(data, error);
       if (data) {
         setErrors({});
         toast.success("Account created successfully!");
+        redirect(`${redirectTo}`)
       } else if (error) {
         toast.error("Account creation failed: " + error.message);
       }
@@ -282,7 +286,7 @@ export default function SignUpPage() {
 
           <p className="text-center text-sm text-default-500">
             Already have an account?{" "}
-            <Link size="sm" href="#" className="font-semibold hover:underline">
+            <Link size="sm" href={`/login?redirected=${redirectTo}`} className="font-semibold hover:underline">
               Sign In
             </Link>
           </p>

@@ -2,46 +2,50 @@ import React from "react";
 import { Card } from "@heroui/react";
 import Link from "next/link";
 import { Briefcase, Clock, ArrowRight, CircleDollar } from "@gravity-ui/icons";
+import Image from "next/image";
 
 export default function JobCard({ job }) {
   // Safe extraction for both regular string IDs and MongoDB wrapper objects
   const jobId = job._id?.$oid || job._id;
 
-  const { 
-    title, 
-    city, 
-    country, 
-    type, 
-    minSalary, 
-    maxSalary, 
+  const {
+    title,
+    city,
+    country,
+    type,
+    minSalary,
+    maxSalary,
     currency,
     description,
     companyName,
     companyLogo
   } = job;
 
-  
+
   const formatSalary = (amount) => {
     if (!amount) return "";
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currency || "USD",
-      maximumFractionDigits: 0,}
+      maximumFractionDigits: 0,
+    }
     ).format(amount);
   };
 
   return (
-    <Card className="w-full bg-[#121212] border border-neutral-850 text-white rounded-2xl p-6 transition-all duration-300 hover:border-neutral-700 hover:translate-y-[-4px] flex flex-col justify-between min-h-[310px]">
-      
+    <Card className="w-full bg-[#121212] border border-neutral-850 text-white rounded-2xl p-6 transition-all duration-300 hover:border-neutral-700 hover:-translate-y-1 flex flex-col justify-between min-h-77.5">
+
       {/* 1. Header: Company Info + Job Title */}
       <Card.Header className="flex flex-col gap-3 p-0 items-start">
-        
+
         {/* Company Identity Row */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 flex items-center justify-center shrink-0">
-            <img 
-              src={companyLogo} 
-              alt={companyName} 
+            <Image
+              width={35}
+              height={35}
+              src={companyLogo}
+              alt={companyName}
               className="w-full h-full object-cover"
             />
           </div>
@@ -86,7 +90,7 @@ export default function JobCard({ job }) {
 
       {/* 3. Footer Action Link */}
       <Card.Footer className="p-0 flex justify-start mt-auto">
-        <Link 
+        <Link
           href={`/jobs/${jobId}`}
           className="flex items-center gap-2 text-xs font-medium text-neutral-400 hover:text-white transition-colors group no-underline"
         >
