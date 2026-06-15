@@ -30,7 +30,7 @@ const ApplyPage = async({params}) => {
               Access Restricted
             </h1>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Only verified <span className="text-purple-400 font-semibold">Candidate</span> profiles can submit job applications. Your current account role is listed as <span className="text-neutral-200 capitalize underline font-medium">{user.role}</span>.
+              Only <span className="text-purple-400 font-semibold">Candidate</span> profiles can submit job applications. Your current account role is listed as <span className="text-neutral-200 capitalize underline font-medium">{user.role}</span>.
             </p>
           </div>
 
