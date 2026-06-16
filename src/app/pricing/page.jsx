@@ -182,6 +182,7 @@ export default function PricingPage() {
             {/* CTA Execution Button Interface Container */}
             <div className="pt-8 mt-auto">
               <form action="/api/checkout_sessions" method="POST">
+              <input type="hidden" name="plan_id" value={tier.id} />
                 <section>
                   <button className={`cursor-pointer w-full text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98] ${tier.highlight
                     ? "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-600/10"
