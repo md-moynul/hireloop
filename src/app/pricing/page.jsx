@@ -10,72 +10,72 @@ export default function PricingPage() {
   const [profileType, setProfileType] = useState("seekers");
 
   // Tier Matrix Content Dataset configurations
- const pricingData = {
-  seekers: [
-    {
-      id: "seekers-free",
-      name: "Free",
-      price: "$0",
-      period: "/forever",
-      desc: "Essential search mechanisms for entering the application tracking market.",
-      features: ["Browse & save up to 10 jobs", "Apply to up to 3 jobs per month", "Basic candidate profile setup", "Standard real-time email alerts"],
-      cta: "Get Started Free",
-      highlight: false
-    },
-    {
-      id: "seekers-pro",
-      name: "Pro",
-      price: "$19.99",
-      period: "/month",
-      desc: "Advanced toolkit designed for active candidate outreach tracking cycles.",
-      features: ["Apply to up to 30 jobs per month", "Unlimited bookmarked & saved roles", "Advanced pipeline status tracking", "Real-time market salary insights"],
-      cta: "Upgrade to Pro",
-      highlight: true
-    },
-    {
-      id: "seekers-premium",
-      name: "Premium",
-      price: "$39.99",
-      period: "/month",
-      desc: "Maximum structural exposure directly down onto top-tier enterprise feeds.",
-      features: ["Everything in Pro tier level", "Unlimited job application metrics", "Global candidate profile boost", "Early access + Priority support lines"],
-      cta: "Go Premium Max",
-      highlight: false
-    }
-  ],
-  recruiters: [
-    {
-      id: "recruiters-free",
-      name: "Free",
-      price: "$0",
-      period: "/forever",
-      desc: "Basic foundational slots perfectly tuned for targeted startup outreach.",
-      features: ["Up to 3 active job posts concurrent", "Basic integrated applicant view", "Standard index visibility ranking", "Ideal for first year operations"],
-      cta: "Create Recruiter Hub",
-      highlight: false
-    },
-    {
-      id: "recruiters-growth",
-      name: "Growth",
-      price: "$49.99",
-      period: "/month",
-      desc: "Scalable optimization models for growing, multi-departmental platforms.",
-      features: ["Up to 10 active job posts concurrent", "Full lifecycle applicant tracking", "Core descriptive hiring analytics", "Dedicated email customer support"],
-      cta: "Deploy Growth Module",
-      highlight: true
-    },
-    {
-      id: "recruiters-enterprise",
-      name: "Enterprise",
-      price: "$149.99",
-      period: "/month",
-      desc: "High-impact custom suites tailored for massive recruitment loops.",
-      features: ["Up to 50 active job posts concurrent", "Advanced metric tracking system", "Featured priority search listings", "Team collaboration channels", "Custom corporate brand skins"],
-      cta: "Contact Architecture Sales",
-      highlight: false
-    }
-  ]
-};
+  const pricingData = {
+    seekers: [
+      {
+        id: "seekers-free",
+        name: "Free",
+        price: "$0",
+        period: "/forever",
+        desc: "Essential search mechanisms for entering the application tracking market.",
+        features: ["Browse & save up to 10 jobs", "Apply to up to 3 jobs per month", "Basic candidate profile setup", "Standard real-time email alerts"],
+        cta: "Get Started Free",
+        highlight: false
+      },
+      {
+        id: "seekers-pro",
+        name: "Pro",
+        price: "$19.99",
+        period: "/month",
+        desc: "Advanced toolkit designed for active candidate outreach tracking cycles.",
+        features: ["Apply to up to 30 jobs per month", "Unlimited bookmarked & saved roles", "Advanced pipeline status tracking", "Real-time market salary insights"],
+        cta: "Upgrade to Pro",
+        highlight: true
+      },
+      {
+        id: "seekers-premium",
+        name: "Premium",
+        price: "$39.99",
+        period: "/month",
+        desc: "Maximum structural exposure directly down onto top-tier enterprise feeds.",
+        features: ["Everything in Pro tier level", "Unlimited job application metrics", "Global candidate profile boost", "Early access + Priority support lines"],
+        cta: "Go Premium Max",
+        highlight: false
+      }
+    ],
+    recruiters: [
+      {
+        id: "recruiters-free",
+        name: "Free",
+        price: "$0",
+        period: "/forever",
+        desc: "Basic foundational slots perfectly tuned for targeted startup outreach.",
+        features: ["Up to 3 active job posts concurrent", "Basic integrated applicant view", "Standard index visibility ranking", "Ideal for first year operations"],
+        cta: "Create Recruiter Hub",
+        highlight: false
+      },
+      {
+        id: "recruiters-growth",
+        name: "Growth",
+        price: "$49.99",
+        period: "/month",
+        desc: "Scalable optimization models for growing, multi-departmental platforms.",
+        features: ["Up to 10 active job posts concurrent", "Full lifecycle applicant tracking", "Core descriptive hiring analytics", "Dedicated email customer support"],
+        cta: "Deploy Growth Module",
+        highlight: true
+      },
+      {
+        id: "recruiters-enterprise",
+        name: "Enterprise",
+        price: "$149.99",
+        period: "/month",
+        desc: "High-impact custom suites tailored for massive recruitment loops.",
+        features: ["Up to 50 active job posts concurrent", "Advanced metric tracking system", "Featured priority search listings", "Team collaboration channels", "Custom corporate brand skins"],
+        cta: "Contact Architecture Sales",
+        highlight: false
+      }
+    ]
+  };
 
   const faqData = [
     {
@@ -98,7 +98,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white px-4 py-16 md:px-8 lg:px-16 flex flex-col items-center">
-      
+
       {/* 1. Header Hero Display Titles */}
       <header className="max-w-3xl mx-auto text-center mb-12 space-y-4">
         <div className="inline-flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-xs text-purple-400 font-medium tracking-wide uppercase">
@@ -117,21 +117,19 @@ export default function PricingPage() {
       <div className="bg-[#121212] border border-neutral-850 p-1.5 rounded-2xl flex items-center gap-1.5 mb-16 w-full max-w-sm shadow-xl">
         <button
           onClick={() => setProfileType("seekers")}
-          className={`flex-1 text-center py-2.5 rounded-xl text-xs font-semibold tracking-wide uppercase transition-all ${
-            profileType === "seekers"
-              ? "bg-white text-black shadow-md shadow-white/5"
-              : "text-neutral-400 hover:text-neutral-200"
-          }`}
+          className={`flex-1 text-center py-2.5 rounded-xl text-xs font-semibold tracking-wide uppercase transition-all ${profileType === "seekers"
+            ? "bg-white text-black shadow-md shadow-white/5"
+            : "text-neutral-400 hover:text-neutral-200"
+            }`}
         >
           For Job Seekers
         </button>
         <button
           onClick={() => setProfileType("recruiters")}
-          className={`flex-1 text-center py-2.5 rounded-xl text-xs font-semibold tracking-wide uppercase transition-all ${
-            profileType === "recruiters"
-              ? "bg-white text-black shadow-md shadow-white/5"
-              : "text-neutral-400 hover:text-neutral-200"
-          }`}
+          className={`flex-1 text-center py-2.5 rounded-xl text-xs font-semibold tracking-wide uppercase transition-all ${profileType === "recruiters"
+            ? "bg-white text-black shadow-md shadow-white/5"
+            : "text-neutral-400 hover:text-neutral-200"
+            }`}
         >
           For Recruiters
         </button>
@@ -140,13 +138,12 @@ export default function PricingPage() {
       {/* 3. 3-Tier Responsive Card Grid Layout System */}
       <main className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6 items-start mb-24">
         {pricingData[profileType].map((tier) => (
-          <Card 
+          <Card
             key={tier.name}
-            className={`w-full bg-[#121212] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-125 border relative transition-all duration-300 hover:border-neutral-700/60 ${
-              tier.highlight 
-                ? "border-purple-500 shadow-2xl shadow-purple-500/5 ring-1 ring-purple-500/30 md:-translate-y-2" 
-                : "border-neutral-850"
-            }`}
+            className={`w-full bg-[#121212] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-125 border relative transition-all duration-300 hover:border-neutral-700/60 ${tier.highlight
+              ? "border-purple-500 shadow-2xl shadow-purple-500/5 ring-1 ring-purple-500/30 md:-translate-y-2"
+              : "border-neutral-850"
+              }`}
           >
             {/* Visual Callout Badge for Highlighted Core Packages */}
             {tier.highlight && (
@@ -172,9 +169,8 @@ export default function PricingPage() {
               <ul className="space-y-3.5 pt-2">
                 {tier.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-xs text-neutral-300 leading-relaxed">
-                    <div className={`mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${
-                      tier.highlight ? "bg-purple-500/10 text-purple-400" : "bg-neutral-900 text-neutral-400"
-                    }`}>
+                    <div className={`mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${tier.highlight ? "bg-purple-500/10 text-purple-400" : "bg-neutral-900 text-neutral-400"
+                      }`}>
                       <Check className="w-3 h-3 stroke-[2.5]" />
                     </div>
                     <span>{feature}</span>
@@ -185,7 +181,18 @@ export default function PricingPage() {
 
             {/* CTA Execution Button Interface Container */}
             <div className="pt-8 mt-auto">
-              <Button
+              <form action="/api/checkout_sessions" method="POST">
+                <section>
+                  <button className={`cursor-pointer w-full text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98] ${tier.highlight
+                    ? "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-600/10"
+                    : "bg-neutral-950 hover:bg-neutral-900 text-neutral-200 border border-neutral-800"
+                    }`} type="submit" role="link">
+                    {tier.cta}
+                    {tier.highlight ? <Thunderbolt className="w-3.5 h-3.5 fill-current" /> : <ArrowRight className="w-3.5 h-3.5" />}
+                  </button>
+                </section>
+              </form>
+              {/* <Button
                 className={`w-full text-xs font-bold uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98] ${
                   tier.highlight
                     ? "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-600/10"
@@ -194,7 +201,7 @@ export default function PricingPage() {
               >
                 {tier.cta}
                 {tier.highlight ? <Thunderbolt className="w-3.5 h-3.5 fill-current" /> : <ArrowRight className="w-3.5 h-3.5" />}
-              </Button>
+              </Button> */}
             </div>
           </Card>
         ))}
@@ -215,8 +222,8 @@ export default function PricingPage() {
         {/* Clean CSS-Driven Smooth Accordion Wrapper */}
         <div className="space-y-4">
           {faqData.map((faq, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="group bg-[#121212] border border-neutral-850 rounded-2xl overflow-hidden transition-all duration-200 focus-within:border-neutral-700"
             >
               <label className="flex items-center justify-between p-5 cursor-pointer select-none">
@@ -227,7 +234,7 @@ export default function PricingPage() {
                 {/* Dynamic Rotating Cross Toggle Element Arrow */}
                 <div className="w-5 h-5 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-500 transition-transform duration-300 peer-checked:rotate-45 shrink-0">
                   <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 11h-6V5a1 1 0 00-2 0v6H5a1 1 0 000 2h6v6a1 1 0 002 0v-6h6a1 1 0 000-2z"/>
+                    <path d="M19 11h-6V5a1 1 0 00-2 0v6H5a1 1 0 000 2h6v6a1 1 0 002 0v-6h6a1 1 0 000-2z" />
                   </svg>
                 </div>
                 {/* Collapsible Content Frame Trigger Block */}
