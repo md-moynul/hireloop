@@ -35,7 +35,7 @@ export default async function JobsPage() {
           {allJobs.length} {allJobs.length === 1 ? "Job Available" : "Jobs Available"}
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-b from-white to-neutral-400 bg-clip-text text-transparent">
           Explore Available Roles
         </h1>
       </header>

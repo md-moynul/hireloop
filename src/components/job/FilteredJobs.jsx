@@ -93,7 +93,7 @@ export default function FilteredJobs({ allJobs = [], categories = [] }) {
               <Select.Indicator className="text-neutral-500 text-xs ml-2">▼</Select.Indicator>
             </Select.Trigger>
             
-            <Select.Popover className="bg-neutral-950 border border-neutral-800 rounded-xl shadow-xl z-50 overflow-hidden mt-1 min-w-[200px]">
+            <Select.Popover className="bg-neutral-950 border border-neutral-800 rounded-xl shadow-xl z-50 overflow-hidden mt-1 min-w-50">
               <ListBox className="p-1">
                 <ListBox.Item className={`px-3 py-2 text-sm rounded-lg cursor-pointer ${selectedCategory === "All" ? "text-purple-400 bg-neutral-900" : "text-neutral-300"}`} onClick={() => setSelectedCategory("All")}>All Categories</ListBox.Item>
                 {categories.map((cat) => (
@@ -115,7 +115,7 @@ export default function FilteredJobs({ allJobs = [], categories = [] }) {
               <Select.Indicator className="text-neutral-500 text-xs ml-2">▼</Select.Indicator>
             </Select.Trigger>
             
-            <Select.Popover className="bg-neutral-950 border border-neutral-800 rounded-xl shadow-xl z-50 overflow-hidden mt-1 min-w-[200px]">
+            <Select.Popover className="bg-neutral-950 border border-neutral-800 rounded-xl shadow-xl z-50 overflow-hidden mt-1 min-w-50">
               <ListBox className="p-1">
                 <ListBox.Item className={`px-3 py-2 text-sm rounded-lg cursor-pointer ${selectedType === "All" ? "text-purple-400 bg-neutral-900" : "text-neutral-300"}`} onClick={() => setSelectedType("All")}>All Types</ListBox.Item>
                 {jobTypes.map((type) => (
