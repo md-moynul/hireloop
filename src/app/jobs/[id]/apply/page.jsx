@@ -6,6 +6,7 @@ import JobApply from './JobApply';
 import Link from 'next/link';
 import { ChevronLeft, ShieldCheck, Star } from '@gravity-ui/icons';
 import { getApplicationByCandidateId } from '@/lib/api/application';
+import { getPlanById } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
   const { id } = await params;
@@ -45,16 +46,17 @@ const ApplyPage = async ({ params }) => {
   }
 
   // 3. Parallel Server Fetch
-  const [applications, job] = await Promise.all([
+  const [applications, job,plan] = await Promise.all([
     getApplicationByCandidateId(user.id),
-    getJobByJobId(id)
+    getJobByJobId(id),
+    getPlanById(user?.plan || 'seekers_free')
   ]);
 
   // Plan Meta-Data Schema Definition
-  const plan = {
-    name: "Free",
-    maxApplicationsPerMonth: 3
-  };
+  // const plan = {
+  //   name: "Free",
+  //   maxApplicationsPerMonth: 3
+  // };
 
   const currentCount = applications?.length || 0;
   const availableApplications = Math.max(0, plan.maxApplicationsPerMonth - currentCount);

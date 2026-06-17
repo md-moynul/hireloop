@@ -57,7 +57,7 @@ export default function JobApply({ job, candidate }) {
                 resumeLink: "",
                 portfolioLink: "",
             })
-
+            window.location.reload();
         }, 1500);
     };
 

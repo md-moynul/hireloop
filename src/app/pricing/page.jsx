@@ -13,7 +13,7 @@ export default function PricingPage() {
   const pricingData = {
     seekers: [
       {
-        id: "seekers-free",
+        id: "seekers_free",
         name: "Free",
         price: "$0",
         period: "/forever",
@@ -23,7 +23,7 @@ export default function PricingPage() {
         highlight: false
       },
       {
-        id: "seekers-pro",
+        id: "seekers_pro",
         name: "Pro",
         price: "$19.99",
         period: "/month",
@@ -33,7 +33,7 @@ export default function PricingPage() {
         highlight: true
       },
       {
-        id: "seekers-premium",
+        id: "seekers_premium",
         name: "Premium",
         price: "$39.99",
         period: "/month",
@@ -45,7 +45,7 @@ export default function PricingPage() {
     ],
     recruiters: [
       {
-        id: "recruiters-free",
+        id: "recruiters_free",
         name: "Free",
         price: "$0",
         period: "/forever",
@@ -55,7 +55,7 @@ export default function PricingPage() {
         highlight: false
       },
       {
-        id: "recruiters-growth",
+        id: "recruiters_growth",
         name: "Growth",
         price: "$49.99",
         period: "/month",
@@ -65,7 +65,7 @@ export default function PricingPage() {
         highlight: true
       },
       {
-        id: "recruiters-enterprise",
+        id: "recruiters_enterprise",
         name: "Enterprise",
         price: "$149.99",
         period: "/month",

@@ -66,7 +66,7 @@ export default function SignUpPage() {
       setIsLoading(false);
       return;
     }
-
+    const plan = selectedRole === 'candidate' ? 'seekers_free' : 'recruiters_free'
     try {
       const { name, email, password } = dataSignin;
       console.log(name, email, password, selectedRole);
@@ -76,6 +76,7 @@ export default function SignUpPage() {
         password,
         name,
         role: selectedRole, // Still passes "candidate" or "recruiter" seamlessly
+        plan ,
       });
 
       // console.log(data, error);
